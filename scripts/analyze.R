@@ -17,8 +17,8 @@ m = read.csv("./results_match/FPFH/feat_30_norm_10_key_sift_normal_2_3_4_0.001_t
 
 ## NEUTRAL  NN0
 # X_test =  m[m$s_tp=='N' & m$s_sample!='0',]
-# X_test =  m[m$s_tp=='O' & m$s_exp=='GLASSES', ]
-X_test =  m[m$s_tp=='O' & m$s_subject== 'bs071' & m$s_exp=='EYE' , ]
+# X_test =  m[m$s_tp=='O', ]
+X_test =  m[m$s_tp=='O' & m$s_exp=='HAIR' , ]
 # X_test =  m[m$s_tp=='N' & m$s_subject== 'bs071' & m$s_sample== '1'  , ]
 
 
