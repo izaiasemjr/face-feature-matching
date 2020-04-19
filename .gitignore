@@ -1,0 +1,19 @@
+# files to ignore
+*.pcd
+*.user
+
+# folder vscode 
+*.vscode/
+
+
+# results
+/scripts/results_features
+/scripts/results_match
+
+
+# build c++ 
+/build/
+
+
+#DS Store (mac-os) 
+*.DS_Store

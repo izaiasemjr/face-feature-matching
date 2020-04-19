@@ -1,0 +1,49 @@
+{
+	"feature_extraction": {
+		"exe": "../build/feature_extraction",
+		"clouds": {
+			"path": "../../data/registrations_cropped"
+		},
+		"output": {
+			"path": "./results_features/FPFH",
+			"path2": "./results_features/FPFH_test"
+		},
+		"normals": {
+			"omp": {
+				"radiusSearch": [
+					5,
+					10,
+					15
+				]
+			}
+		},
+		"keypoints": {
+			"from_file": {
+				"path": "../../data/registrations_landmarks_transformed"
+			},
+			"sift": {}
+		},
+		"features": {
+			"FPFH": {
+				"radiusSearch": [
+					25,
+					30,
+					40,
+					50
+				]
+			}
+		}
+	},
+	"feature_match": {
+		"exe": "../build/feature_matching",
+		"output": {
+			"path": "./results_match/FPFH"
+		},
+		"features": {
+			"path": "./results_features/FPFH"
+		},
+		"correspondence": {
+			"th_score": 440
+		}
+	}
+}
