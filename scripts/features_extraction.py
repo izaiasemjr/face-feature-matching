@@ -56,11 +56,11 @@ def extraction(key_method):
                 if not person.startswith("."):
                     pathPerson = pathPeople + "/" + person
                     for cloud in os.listdir(pathPerson):
-                        # tp = cloud.split('.')[0].split('_')[1]
-                        # if tp == 'N' or tp == 'O':
-                        cloudSplit = cloud.split('.')[0].split('_')
-                        if (cloudSplit[0] == 'bs071' or
-                            (cloudSplit[1] == 'N' and cloudSplit[3] == '0')):
+                        tp = cloud.split('.')[0].split('_')[1]
+                        if tp == 'N' or tp == 'O':
+                            # cloudSplit = cloud.split('.')[0].split('_')
+                            # if (cloudSplit[0] == 'bs071' or
+                            #     (cloudSplit[1] == 'N' and cloudSplit[3] == '0')):
 
                             cloud_param = "-cloud {}/{}/{} ".format(
                                 pathPeople, person, cloud)
@@ -90,11 +90,9 @@ def extraction(key_method):
                             count_global = count_global + 1
                             total = 680 * len(normals_rays) * len(
                                 features_rays)
-                            print(
-                                'feito para {} - {}% concluído \noutput: {}\n'.
-                                format(cloud,
-                                       round(100 * count_global / total, 2),
-                                       output_param))
+                            print('feito para {} - {}% concluído \n'.format(
+                                cloud, round(100 * count_global / total, 2),
+                                ""))
 
 
 def mainArgs(argv):

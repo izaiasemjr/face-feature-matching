@@ -20,7 +20,7 @@ int main (int argc, char ** argv){
      **/
     using namespace  pcl;
 
-    /*
+    /*/
     demoCorrespondence(argc,argv);
     /*/
 
@@ -52,7 +52,7 @@ int main (int argc, char ** argv){
     std::vector<float> corr_sort (correspondence_scores);
     std::sort (corr_sort.begin (), corr_sort.end ());
     float mediana_score = corr_sort[corr_sort.size()/2];
-    float average=0,dist=0,mediana=0,distN2;
+    float average=0,sumSquared=0,mediana=0,distN2=0,distN=0,dist=0;
 
     float threshold=0.0;
     if (th_params[0]=="th_fixe")
@@ -71,23 +71,25 @@ int main (int argc, char ** argv){
         if(corr_sort[i]<=  threshold ){
             best_correspondences_scores.push_back(corr_sort[i]);
             average+=corr_sort[i];
-            dist+= static_cast<float>(pow(corr_sort[i],2));
+            sumSquared+= static_cast<float>(pow(corr_sort[i],2));
             inliers++;
         }
     }
 
     if (inliers !=0){
         average=average/inliers;
-        dist=sqrt(dist/inliers);
-        distN2=sqrt(dist)/inliers;
+        dist=sqrt(sumSquared);
+        distN=sqrt(sumSquared)/inliers;
+        distN2=sqrt(sumSquared)/(inliers*inliers);
         if (best_correspondences_scores.size()>0)
             mediana= best_correspondences_scores.size()%2 == 0 ? (best_correspondences_scores[inliers/2] + best_correspondences_scores[(inliers/2)-1])/2: best_correspondences_scores[inliers/2];
-        if(debug_params[0]=="1")cout<<"dist media: "<<average<<"\ndist quadratica: "<<dist<<"\ndist quadratica N2: "<<distN2<<"\nmediana: "<<mediana<<endl;
+        if(debug_params[0]=="1")cout<<"dist media: "<<average<<"\ndist "<<dist<<"\ndist/N: "<<distN<<"\ndist/N2: "<<distN2<<"\nmediana: "<<mediana<<endl;
     }
     else{
         average=numeric_limits<float>::max();
-        dist=numeric_limits<float>::max();
         mediana=numeric_limits<float>::max();
+        dist=numeric_limits<float>::max();
+        distN=numeric_limits<float>::max();
         distN2=numeric_limits<float>::max();
     }
 
@@ -95,7 +97,7 @@ int main (int argc, char ** argv){
     /// save to file
     std::ofstream file;
     file.open(output_params[0].c_str(), std::ios_base::app);
-    file<<dist<<","<<distN2<<","<<average<<","<<mediana<<","<<correspondence_scores.size()<<","<<inliers<<","
+    file<<dist<<","<<distN<<","<<distN2<<","<<average<<","<<mediana<<","<<correspondence_scores.size()<<","<<inliers<<","
        <<output_params[1]<<","
        <<output_params[2]<<endl;
 

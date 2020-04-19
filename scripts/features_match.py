@@ -57,7 +57,7 @@ def match(thr, pathFeatures):
         # fill header
         with open(filePathOutput, 'w') as fileoutput:
             fileoutput.write(
-                'dist,distN2,media,mediana,corr,matches,s_subject,s_tp,s_exp,s_sample,t_subject,t_tp,t_exp,t_sample\n'
+                'dist,distN,distN2,media,mediana,corr,matches,s_subject,s_tp,s_exp,s_sample,t_subject,t_tp,t_exp,t_sample\n'
             )
         fileoutput.close
 
@@ -66,9 +66,9 @@ def match(thr, pathFeatures):
             outSource = ','.join(labelSource)
 
             ## Neutral vs Neutral
-            # if (labelSource[1] != 'N' ) or (labelSource[3] != '0'):
-            if labelSource[0] == 'bs071':
-                featureSource = '{}/{}'.format(pathCombination, fileFeature)
+            if (labelSource[1] != 'N') or (labelSource[3] != '0'):
+                # if labelSource[0] == 'bs071' and labelSource[1] == 'O':
+                #     featureSource = '{}/{}'.format(pathCombination, fileFeature)
 
                 list_thread = []
                 for i in range(0, 105):

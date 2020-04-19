@@ -147,7 +147,7 @@ void Visualize::visualize_correspondences (const typename pcl::PointCloud<PointT
   for (size_t i = 0; i < keypoints_left->points.size(); i++)
   {
     cout<<"correspondence_scores[i]: "<<correspondence_scores[i]<<endl;
-    if(correspondence_scores[i] > temp[8] )
+    if(correspondence_scores[i] > temp[5] )
     //if (correspondence_scores[i] > median_score*thr_corr  )
 //    if (correspondence_scores[i] > thr_corr  )
     {
