@@ -68,7 +68,7 @@ def match(thr, pathFeatures):
             ## Neutral vs Neutral
             if (labelSource[1] != 'N') or (labelSource[3] != '0'):
                 # if labelSource[0] == 'bs071' and labelSource[1] == 'O':
-                #     featureSource = '{}/{}'.format(pathCombination, fileFeature)
+                featureSource = '{}/{}'.format(pathCombination, fileFeature)
 
                 list_thread = []
                 for i in range(0, 105):

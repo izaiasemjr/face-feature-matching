@@ -5,8 +5,8 @@
 			"path": "../../data/registrations_cropped"
 		},
 		"output": {
-			"path": "./results_features/FPFH",
-			"path2": "./results_features/FPFH_test"
+			"path": "../../data/results_features/FPFH",
+			"path2": "../../data/results_features/FPFH_test"
 		},
 		"normals": {
 			"omp": {
@@ -37,10 +37,10 @@
 	"feature_match": {
 		"exe": "../build/feature_matching",
 		"output": {
-			"path": "./results_match/FPFH"
+			"path": "../../data/results_match/FPFH"
 		},
 		"features": {
-			"path": "./results_features/FPFH"
+			"path": "../../data/results_features/FPFH"
 		},
 		"correspondence": {
 			"th_score": 440
