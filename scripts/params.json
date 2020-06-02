@@ -2,48 +2,19 @@
 	"feature_extraction": {
 		"exe": "../build/feature_extraction",
 		"clouds": {
-			"path": "../../data/registrations_cropped"
+			"path": "../../DATA/RESULTS_REGISTRO/BASES/BOSPHORUS_OCCLUSIONS_NEUTRALS/CP-ICP/mask_mls_th8/registrations_crop80"
 		},
 		"output": {
-			"path": "../../data/results_features/FPFH",
-			"path2": "../../data/results_features/FPFH_test"
-		},
-		"normals": {
-			"omp": {
-				"radiusSearch": [
-					5,
-					10,
-					15
-				]
-			}
+			"path": "../../DATA/results_features/FPFH/CP-ICP/mask_mls_th8/keypoints_15_11_11_6"
 		},
 		"keypoints": {
-			"from_file": {
-				"path": "../../data/registrations_landmarks_transformed"
-			},
-			"sift": {}
-		},
-		"features": {
-			"FPFH": {
-				"radiusSearch": [
-					25,
-					30,
-					40,
-					50
-				]
-			}
+			"path": "../../DATA/RESULTS_REGISTRO/BASES/BOSPHORUS_OCCLUSIONS_NEUTRALS/CP-ICP/mask_mls_th8/keypoints_15_11_11_6"
 		}
 	},
 	"feature_match": {
 		"exe": "../build/feature_matching",
 		"output": {
-			"path": "../../data/results_match/FPFH"
-		},
-		"features": {
-			"path": "../../data/results_features/FPFH"
-		},
-		"correspondence": {
-			"th_score": 440
+			"path": "../../DATA/results_matching/FPFH/CP-ICP/mask_mls_th8/keypoints_15_11_11_6"
 		}
 	}
 }
