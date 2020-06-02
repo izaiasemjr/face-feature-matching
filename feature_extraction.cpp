@@ -9,8 +9,8 @@ typedef PointXYZ PointDemo;
 int main (int argc, char ** argv)
 {
     /** exemple params
-     * -clouds cloud/bs009/bs009_N_N_0.pcd -downsample voxel_grid,3    -normal 10  -keypoints from_file,keypoints/bs009/bs009_N_N_0.pcd  -keypointss  sift_normal,3,3,4,0.001  -features fpfh,25 -output bs009_N_N_0_desc.pcd
-    **/
+    -cloud registrations/bs009/bs009_N_N_0.pcd    -keypoints from_file,keypoints/bs009/bs009_N_N_0.pcd  -keypointss  sift_normal,3,3,4,0.001  -features fpfh,25    -normal 10 -output bs009_N_N_0_desc.pcd -debug 1
+   **/
 
     using namespace  pcl;
 

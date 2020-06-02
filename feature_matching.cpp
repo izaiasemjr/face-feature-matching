@@ -48,6 +48,7 @@ int main (int argc, char ** argv){
 
 
     /// Parameters for recognition
+    std::vector<int> correspondences_histogram(correspondences.size(),0);
     std::vector<float> best_correspondences_scores;
     std::vector<float> corr_sort (correspondence_scores);
     std::sort (corr_sort.begin (), corr_sort.end ());
@@ -69,6 +70,7 @@ int main (int argc, char ** argv){
     size_t inliers=0;
     for(size_t i=0;i<corr_sort.size();i++){
         if(corr_sort[i]<=  threshold ){
+            correspondences_histogram[i]+=1;
             best_correspondences_scores.push_back(corr_sort[i]);
             average+=corr_sort[i];
             sumSquared+= static_cast<float>(pow(corr_sort[i],2));
@@ -104,7 +106,15 @@ int main (int argc, char ** argv){
     if(debug_params[0]=="1")cout<<"inliers: "<<inliers<<endl;
     if(debug_params[0]=="1")cout<<"total time: " << static_cast<duration<double>>(chrono::steady_clock::now() - total_start).count() << " s\n"<<
                                "--------------------------------------------------"<<endl;
-    //*/
+
+    /// save histogram shit
+    std::ofstream file_hist;
+    file_hist.open((output_params[0] + ".hist").c_str(), std::ios_base::app);
+    for(int h =0;h<correspondences_histogram.size();h++){
+        file_hist<<correspondences_histogram[h]<<",";
+    }
+    file_hist<<output_params[1]<<","<<output_params[2]<<endl;
+
 
     return 0;
 }

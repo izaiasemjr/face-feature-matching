@@ -10,6 +10,14 @@ static const string PFH   = "PFH";
 using namespace std;
 
 
+float dist_manhattan(float *source_histogram,float *target_histogram, size_t size){
+    float sum=0;
+    for (int i=0; i<size; i++){
+        sum+= abs(source_histogram[i] - target_histogram[i]);
+    }
+    return sqrt(sum);
+}
+
 
 template <typename FeatureType>
 void find_feature_correspondences (typename pcl::PointCloud<FeatureType>::Ptr descriptors1,
@@ -34,6 +42,7 @@ void find_feature_correspondences (typename pcl::PointCloud<FeatureType>::Ptr de
   descriptor_kdtree.setInputCloud (target_descriptors);
 
   // Find the index of the best match for each keypoint, and store it in "correspondences_out"
+  float dist;
   const int k = 1;
   std::vector<int> k_indices (k);
   std::vector<float> k_squared_distances (k);
@@ -46,10 +55,56 @@ void find_feature_correspondences (typename pcl::PointCloud<FeatureType>::Ptr de
 
     descriptor_kdtree.nearestKSearch (*source_descriptors, i, k, k_indices, k_squared_distances);
     correspondences_out[i] = k_indices[0];
-    correspondence_scores_out[i] = k_squared_distances[0];
+    //correspondence_scores_out[i] = k_squared_distances[0];
+    dist = dist_manhattan(source_descriptors->points[i].histogram,target_descriptors->points[k_indices[0]].histogram,33);
+    correspondence_scores_out[i] = dist;
   }
 }
 
+template <typename FeatureType>
+void find_feature_correspondences_fixes(
+                              typename pcl::PointCloud<FeatureType>::Ptr descriptors1,
+                              typename pcl::PointCloud<FeatureType>::Ptr descriptors2,
+                              std::vector<int> &correspondences_out,
+                              std::vector<float> &correspondence_scores_out,
+                              string metric
+                              )
+{
+    // let be correspondences univoque
+    typename pcl::PointCloud<FeatureType>::Ptr source_descriptors(descriptors1);
+    typename pcl::PointCloud<FeatureType>::Ptr target_descriptors(descriptors2);
+    if(descriptors1->points.size() > descriptors2->points.size()){
+        source_descriptors = descriptors2;
+        target_descriptors = descriptors1;
+    }
+
+
+  // Resize the output vector
+  correspondences_out.resize (source_descriptors->size (),0);
+  correspondence_scores_out.resize (source_descriptors->size (), numeric_limits<float>::max() );
+
+  // Use a KdTree to search for the nearest matches in feature space
+  pcl::KdTreeFLANN<FeatureType> descriptor_kdtree;
+  descriptor_kdtree.setInputCloud (target_descriptors);
+
+  // Find the index of the best match for each keypoint, and store it in "correspondences_out"
+  float dist;
+  const int k = 1;
+  std::vector<int> k_indices (k);
+  std::vector<float> k_squared_distances (k);
+
+  for (size_t i = 0; i < source_descriptors->size (); ++i)
+  {
+
+    auto first_value = source_descriptors->points[i]. histogram[0];
+    if (first_value!=first_value)
+         continue;
+
+    dist = dist_manhattan(source_descriptors->points[i].histogram,target_descriptors->points[i].histogram,33);
+    correspondences_out[i] = i;
+    correspondence_scores_out[i] = dist;
+  }
+}
 
 
 
